@@ -1,0 +1,48 @@
+{
+  "Routes": [
+    // Роут для Swagger JSON первого сервиса
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "webapi1", "Port": 8080 }],
+      "UpstreamPathTemplate": "/api1/swagger/v1/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    // Роут для методов первого сервиса
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "webapi1", // Имя сервиса из docker-compose
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api1/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    // Аналогично для второго сервиса...
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "webapi2", "Port": 8080 }],
+      "UpstreamPathTemplate": "/api2/swagger/v1/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ]
+    },    
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "webapi2", // Имя сервиса из docker-compose
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api2/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:4000"
+  }
+}

@@ -1,0 +1,39 @@
+﻿services:
+  webapi1:
+    image: web-api-1-image
+    build:
+      context: ./WebApi1/WebApi1
+      dockerfile: Dockerfile
+    container_name: web-api-1-container
+    ports:
+      - "5000:8080"  # Доступ снаружи по http://localhost:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    restart: always
+    
+  webapi2:
+    image: web-api-2-image
+    build:
+      context: ./WebApi2/WebApi2
+      dockerfile: Dockerfile
+    container_name: web-api-2-container
+    ports:
+      - "7000:8080"  # Доступ снаружи по http://localhost:7000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    restart: always
+
+  gateway:
+    image: api-gateway-image
+    build:
+      context: ./ApiGateway/ApiGateway # Путь к вашему новому проекту шлюза
+      dockerfile: Dockerfile
+    container_name: api-gateway-container
+    ports:
+      - "4000:8080" # Шлюз будет доступен на 4000 порту
+    depends_on:
+      - webapi1
+      - webapi2
+    restart: always
