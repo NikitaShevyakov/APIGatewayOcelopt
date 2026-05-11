@@ -1,4 +1,5 @@
 using Microsoft.OpenApi;
+using WebApi1.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.AddSwaggerJwtAuth();
     // c.AddServer(new OpenApiServer { Url = "/api1" });
     // 1. Прямой доступ
     c.AddServer(new OpenApiServer { Url = "http://localhost:5000", Description = "Direct Access" });
@@ -18,6 +21,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
