@@ -8,15 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
-builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddGatewayAuthentication();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSwaggerJwtAuth();
-    // 1. Прямой доступ
-    c.AddServer(new OpenApiServer { Url = "http://localhost:7000", Description = "Direct Access" });
-    // 2. Доступ через Gateway
-    c.AddServer(new OpenApiServer { Url = "http://localhost:4000/web-api-2", Description = "Via Gateway" });
+    c.AddServer(new OpenApiServer { Url = "web-api-2", Description = "Via Gateway" });
 });
 
 var app = builder.Build();

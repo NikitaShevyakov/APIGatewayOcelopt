@@ -1,39 +1,20 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text;
-using WebApi1.Models;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
 
 namespace WebApi1.Extensions;
 
 public static class JwtExtensions
 {
-    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddGatewayAuthentication(this IServiceCollection services)
     {
-        var secret = configuration.GetValue<string>("JwtSettings:Secret");
-        var key = Encoding.ASCII.GetBytes(secret!);
-
-        services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(x =>
-        {
-            x.RequireHttpsMetadata = false;
-            x.SaveToken = true;
-            x.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
-        });
+        services.AddAuthentication("GatewayAuth")
+            .AddScheme<AuthenticationSchemeOptions, GatewayAuthHandler>("GatewayAuth", null);
 
         services.AddAuthorization();
-
         return services;
     }
 
@@ -45,7 +26,7 @@ public static class JwtExtensions
             Name = "Authorization",
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.Http,
-            Scheme = "bearer", // Обязательно с маленькой буквы
+            Scheme = "bearer",
             BearerFormat = "JWT",
             Description = "Введите ваш токен:",
         });
@@ -56,5 +37,26 @@ public static class JwtExtensions
             [new OpenApiSecuritySchemeReference("Bearer", document)] = []
         });
     }
+}
 
+public class GatewayAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+{
+    public GatewayAuthHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder)
+        : base(options, logger, encoder) { }
+
+    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    {
+        // Ocelot пришлет имя в заголовке X-User-Name
+        if (!Request.Headers.TryGetValue("X-User-Name", out var userName))
+        {
+            return Task.FromResult(AuthenticateResult.NoResult());
+        }
+
+        var claims = new List<Claim> { new Claim(ClaimTypes.Name, userName.ToString()) };
+        var identity = new ClaimsIdentity(claims, "GatewayAuth");
+        var principal = new ClaimsPrincipal(identity);
+        var ticket = new AuthenticationTicket(principal, "GatewayAuth");
+
+        return Task.FromResult(AuthenticateResult.Success(ticket));
+    }
 }

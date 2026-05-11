@@ -3,12 +3,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebApi2.Models;
+using ApiGateway.Models;
 
-namespace WebApi2.Controllers;
+namespace ApiGateway.Controllers;
 
 [ApiController]
-[Route("api-v1/[controller]")]
+[Route("gateway/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;

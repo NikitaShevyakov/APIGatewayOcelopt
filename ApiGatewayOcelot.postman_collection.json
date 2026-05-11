@@ -1,0 +1,440 @@
+{
+  "info": {
+    "_postman_id": "6cd5ddf2-f816-4d71-a94d-77176538ad35",
+    "name": "ApiGatewayOcelot",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52944722",
+    "_collection_link": "https://go.postman.co/collection/52944722-6cd5ddf2-f816-4d71-a94d-77176538ad35?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "#1",
+      "item": [
+        {
+          "name": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi1}}"
+              ],
+              "path": [
+                "api-v1",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi2}}"
+              ],
+              "path": [
+                "api-v2",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWebApi1}}/api-v1/Auth/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.token;\r",
+                  "pm.environment.set(\"bearerJwtToken\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{UrlWebApi1}}/api-v1/Auth/login",
+              "host": [
+                "{{UrlWebApi1}}"
+              ],
+              "path": [
+                "api-v1",
+                "Auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "#2",
+      "item": [
+        {
+          "name": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi1}}"
+              ],
+              "path": [
+                "api-v1",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi2}}"
+              ],
+              "path": [
+                "api-v2",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWebApi1}}/api-v1/Auth/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.token;\r",
+                  "pm.environment.set(\"bearerJwtToken\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{UrlWebApi1}}/api-v1/Auth/login",
+              "host": [
+                "{{UrlWebApi1}}"
+              ],
+              "path": [
+                "api-v1",
+                "Auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWbApiGateWay}}/web-api-1/api-v1/WeatherForecast/All Copy",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWbApiGateWay}}/web-api-1/api-v1/WeatherForecast/All",
+              "host": [
+                "{{UrlWbApiGateWay}}"
+              ],
+              "path": [
+                "web-api-1",
+                "api-v1",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWbApiGateWay}}/web-api-1/api-v2/WeatherForecast/All Copy",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWbApiGateWay}}/web-api-1/api-v2/WeatherForecast/All",
+              "host": [
+                "{{UrlWbApiGateWay}}"
+              ],
+              "path": [
+                "web-api-1",
+                "api-v2",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "#3",
+      "item": [
+        {
+          "name": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi1}}/api-v1/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi1}}"
+              ],
+              "path": [
+                "api-v1",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWebApi2}}/api-v2/WeatherForecast/All",
+              "host": [
+                "{{UrlWebApi2}}"
+              ],
+              "path": [
+                "api-v2",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWbApiGateWay}}/api-v1/Auth/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.token;\r",
+                  "pm.environment.set(\"bearerJwtToken\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{UrlWbApiGateWay}}/api-v1/Auth/login",
+              "host": [
+                "{{UrlWbApiGateWay}}"
+              ],
+              "path": [
+                "api-v1",
+                "Auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWbApiGateWay}}/web-api-1/api-v1/WeatherForecast/All Copy",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWbApiGateWay}}/web-api-1/api-v1/WeatherForecast/All",
+              "host": [
+                "{{UrlWbApiGateWay}}"
+              ],
+              "path": [
+                "web-api-1",
+                "api-v1",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "{{UrlWbApiGateWay}}/web-api-1/api-v2/WeatherForecast/All Copy",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "bearer {{bearerJwtToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{UrlWbApiGateWay}}/web-api-1/api-v2/WeatherForecast/All",
+              "host": [
+                "{{UrlWbApiGateWay}}"
+              ],
+              "path": [
+                "web-api-1",
+                "api-v2",
+                "WeatherForecast",
+                "All"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

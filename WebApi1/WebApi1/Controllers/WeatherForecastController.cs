@@ -4,7 +4,6 @@ using WebApi1.Models;
 
 namespace WebApi1.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("api-v1/[controller]")]
 public class WeatherForecastController : ControllerBase
@@ -14,6 +13,7 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
+    [Authorize]
     [HttpGet("All")]
     public IEnumerable<WeatherForecast> Get()
     {
@@ -26,11 +26,19 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
 
+    [Authorize]
     // Метод 2: Доступен по GET api/WeatherForecast/today
     [HttpGet("today")]
     public WeatherForecast GetToday()
     {
         /* логика получения данных только на сегодня */
         return new WeatherForecast(DateOnly.FromDateTime(DateTime.Now), 25, "Hot");
+    }
+
+    [HttpGet]
+    public IActionResult GetName()
+    {
+        var userName = Request.Headers["X-User-Name"].ToString();
+        return Ok(new { Message = $"Hello, {userName}", Headers = Request.Headers.ToList() });
     }
 }
