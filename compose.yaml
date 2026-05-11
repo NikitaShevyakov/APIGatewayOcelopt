@@ -24,3 +24,16 @@
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
     restart: always
+
+  gateway:
+    image: api-gateway-image
+    build:
+      context: ./ApiGateway/ApiGateway # Путь к вашему новому проекту шлюза
+      dockerfile: Dockerfile
+    container_name: api-gateway-container
+    ports:
+      - "4000:8080" # Шлюз будет доступен на 4000 порту
+    depends_on:
+      - webapi1
+      - webapi2
+    restart: always

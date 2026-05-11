@@ -1,0 +1,49 @@
+{
+  "Routes": [
+    // Роут для методов первого сервиса
+    {
+      "DownstreamPathTemplate": "/{everything}",                // Куда шлюз «стучится» внутри
+      "DownstreamScheme": "http",                               // Протокол общения внутри
+      "DownstreamHostAndPorts": [                               // Адрес контейнера
+        {
+          "Host": "webapi1", // Имя сервиса из docker-compose
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/web-api-1/{everything}",        // вход в шлюз
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]  // Ограничение методов
+    },
+    // Роут для Swagger JSON первого сервиса
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",            // Куда шлюз «стучится» внутри
+      "DownstreamScheme": "http",                                      // Протокол общения внутри
+      "DownstreamHostAndPorts": [{ "Host": "webapi1", "Port": 8080 }], // Адрес контейнера
+      "UpstreamPathTemplate": "/web-api-1/swagger/v1/swagger.json",    // вход в шлюз
+      "UpstreamHttpMethod": [ "Get" ]                                  // Ограничение методов
+    },   
+    //---------------------------------------------------------------------------------------
+    // Аналогично для второго сервиса...
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "webapi2", // Имя сервиса из docker-compose
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/web-api-2/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "webapi2", "Port": 8080 }],
+      "UpstreamPathTemplate": "/web-api-2/swagger/v1/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:4000"
+  }
+}
