@@ -1,4 +1,4 @@
-using Microsoft.OpenApi;
+using WebApi2.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,10 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddControllers();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSwaggerJwtAuth();
+});
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

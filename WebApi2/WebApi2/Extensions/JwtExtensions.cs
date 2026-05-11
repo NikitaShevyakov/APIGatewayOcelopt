@@ -3,9 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-using WebApi1.Models;
 
-namespace WebApi1.Extensions;
+namespace WebApi2.Extensions;
 
 public static class JwtExtensions
 {

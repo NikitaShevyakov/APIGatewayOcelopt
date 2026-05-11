@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApi2.Models;
 
 namespace WebApi2.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api-v2/[controller]")]
 public class WeatherForecastController : ControllerBase
